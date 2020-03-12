@@ -1,34 +1,44 @@
 <h1>Hello, world!</h1>
 
 <div class="row">
-  <div class="col-md">
-    <!--Inputs-->
-    <div>
-      <form class="form-inline">
+  <!--Inputs-->
 
-        <label class="sr-only" for="price">Price</label>
-        <div class="input-group mb-2 mr-sm-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">€</div>
-          </div>
-          <input type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="0.00">
-        </div>
+  <form class="form-inline">
 
-        <div class="form-group">
-          <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd"
-                   name="dp" ngbDatepicker #d="ngbDatepicker">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-            </div>
-          </div>
-        </div>
-
-          
-          <button type="submit" class="btn btn-primary mb-2">Submit</button>
-      </form>
-
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">€</div>
+      </div>
+      <input name="price" type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="0.00" [(ngModel)]="price">
     </div>
+
+
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="date">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <select class="custom-select" [(ngModel)]="time" name="time">
+        <option selected>Choose time</option>
+        <option value="00:00">00:00</option>
+        <option value="00:30">00:30</option>
+        <option value="01:00">01:00</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" (click)="addPrice()">Submit</button>
+    </div>
+  </form>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
    
     <!--Label-->
     <div>
@@ -43,7 +53,20 @@
   <div class="col-md">
     <!--Table-->
     <div>
-
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" sortable="timestamp">Timestamp</th>
+            <th scope="col" sortable="price">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let priceItem of priceItems">
+            <td>{{  priceItem.timestamp }}</td>
+            <td>{{ priceItem.price | currency:'EUR'  }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

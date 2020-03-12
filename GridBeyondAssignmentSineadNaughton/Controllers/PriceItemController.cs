@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GridBeyondAssignmentSineadNaughton.Helpers;
 using GridBeyondAssignmentSineadNaughton.Models;
+using GridBeyondAssignmentSineadNaughton.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,18 +14,33 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
     [Route("[controller]")]
     public class PriceItemController : ControllerBase
     {
+        PriceItemsService priceItemsService = new PriceItemsService();
+
         [Route("/api/priceitems")]
         [HttpGet]
         public IEnumerable<PriceItem> GetAllItems()
         {
-            return new List<PriceItem>() { new PriceItem() { Id=1, Price=2.44m, Timestamp=new DateTime()} };
+            List<PriceItem> priceItems = priceItemsService.GetAll();
+            return priceItems;
+        }
+
+        [Route("/api/priceitems")]
+        [HttpPost]
+        public List<PriceItem> GetAllItems(PriceItem priceItem)
+        {
+            priceItemsService.Add(priceItem);
+            List<PriceItem> priceItems = priceItemsService.GetAll();
+            return priceItems;
         }
 
         [Route("/api/priceitems/calculations")]
         [HttpGet]
         public PriceCalculation GetPriceCalculation()
         {
-            return new PriceCalculation() { MostExpensiveSixtyMinutesPeriod="", PriceAverage=2.40m, PriceMax=4.00m, PriceMin=1.00m};
+            List<PriceItem> priceItems = priceItemsService.GetAll();
+            PriceCalculationsHelper priceCalculationsHelper = new PriceCalculationsHelper();
+            PriceCalculation priceCalculation = priceCalculationsHelper.GetPriceCalculation(priceItems);
+            return priceCalculation;
         }
     }
 }
