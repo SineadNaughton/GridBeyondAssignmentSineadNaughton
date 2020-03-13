@@ -13,8 +13,22 @@ namespace GridBeyondAssignmentSineadNaughton.Services
         {
             //create a data context and add an item
             using PriceItemsContext dataContext = new PriceItemsContext();
-            dataContext.PriceItems.Add(priceItem);
-            dataContext.SaveChanges();
+            List<PriceItem> priceItems = GetAll();
+            bool exists = false;
+
+            //check if there is already an entry for this time
+            foreach (PriceItem pI in priceItems)
+            {
+                if (pI.Timestamp.Equals(priceItem.Timestamp))
+                {
+                    exists = true;
+                }
+            }
+            if (!exists)
+            {
+                dataContext.PriceItems.Add(priceItem);
+                dataContext.SaveChanges();
+            }
         }
 
         //Get
@@ -22,6 +36,7 @@ namespace GridBeyondAssignmentSineadNaughton.Services
         {
             using PriceItemsContext dataContext = new PriceItemsContext();
             var priceItems = dataContext.PriceItems.ToList();
+            priceItems = priceItems.OrderBy(p => p.Timestamp).ToList();
             return priceItems;
         }
     }

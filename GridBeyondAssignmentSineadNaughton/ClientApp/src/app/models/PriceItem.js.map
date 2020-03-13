@@ -1,1 +1,1 @@
-{"version":3,"file":"PriceItem.js","sourceRoot":"","sources":["PriceItem.ts"],"names":[],"mappings":";;AAAA;IAAA;IAMA,CAAC;IAAD,gBAAC;AAAD,CAAC,AAND,IAMC;AANY,8BAAS"}
+{"version":3,"file":"PriceItem.js","sourceRoot":"","sources":["PriceItem.ts"],"names":[],"mappings":";;AAAA;IAEE,mBAAY,KAAa,EAAE,SAAe;QACxC,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;IAC7B,CAAC;IAMH,gBAAC;AAAD,CAAC,AAXD,IAWC;AAXY,8BAAS"}

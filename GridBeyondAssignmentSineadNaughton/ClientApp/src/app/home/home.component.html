@@ -1,73 +1,131 @@
-<h1>Hello, world!</h1>
-
-<div class="row">
+<div class="d-flex justify-content-center">
+  <h1>Grid Beyond Price Display</h1>
+ </div>
   <!--Inputs-->
+  <div class="row mx-md-n5">
+    <div class="col-12">
+      <div class="d-flex justify-content-center">
+        <form class="form-inline">
 
-  <form class="form-inline">
+          <div class="input-group p-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">€</div>
+            </div>
+            <input name="price" type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="0.00" [(ngModel)]="price">
+          </div>
 
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text">€</div>
+
+          <div class="input-group p-2">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="dp" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="date">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                📅
+              </button>
+            </div>
+          </div>
+
+          <div class="input-group p-2">
+            <select class="custom-select" [(ngModel)]="time" name="time">
+              <option value="00:00">00:00</option>
+              <option value="00:30">00:30</option>
+              <option value="01:00">01:00</option>
+              <option value="01:30">01:30</option>
+              <option value="02:00">02:00</option>
+              <option value="02:30">02:30</option>
+              <option value="03:00">03:00</option>
+              <option value="03:30">03:30</option>
+              <option value="04:00">04:00</option>
+              <option value="04:30">04:30</option>
+              <option value="05:00">05:00</option>
+              <option value="05:30">05:30</option>
+              <option value="06:00">06:00</option>
+              <option value="06:30">06:30</option>
+              <option value="07:00">07:00</option>
+              <option value="07:30">07:30</option>
+              <option value="08:00">08:00</option>
+              <option value="08:30">08:30</option>
+              <option value="09:00">09:00</option>
+              <option value="09:30">09:30</option>
+              <option value="10:00">10:00</option>
+              <option value="10:30">10:30</option>
+              <option value="11:00">11:00</option>
+              <option value="11:30">11:30</option>
+              <option value="12:00">12:00</option>
+              <option value="12:30">12:30</option>
+              <option value="13:00">13:00</option>
+              <option value="13:30">13:30</option>
+              <option value="14:00">14:00</option>
+              <option value="14:30">14:30</option>
+              <option value="15:00">15:00</option>
+              <option value="15:30">15:30</option>
+              <option value="16:00">16:00</option>
+              <option value="16:30">16:30</option>
+              <option value="17:00">17:00</option>
+              <option value="17:30">17:30</option>
+              <option value="18:00">18:00</option>
+              <option value="18:30">18:30</option>
+              <option value="19:00">19:00</option>
+              <option value="19:30">19:30</option>
+              <option value="20:00">20:00</option>
+              <option value="20:30">20:30</option>
+              <option value="21:00">21:00</option>
+              <option value="21:30">21:30</option>
+              <option value="22:00">22:00</option>
+              <option value="22:30">22:30</option>
+              <option value="23:00">23:00</option>
+              <option value="23:30">23:30</option>
+            </select>
+          </div>
+
+          <div class="input-group p-2">
+            <button type="button" class="btn btn-primary" (click)="addPrice()">Add</button>
+          </div>
+        </form>
       </div>
-      <input name="price" type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="0.00" [(ngModel)]="price">
-    </div>
-
-
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="date">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <select class="custom-select" [(ngModel)]="time" name="time">
-        <option selected>Choose time</option>
-        <option value="00:00">00:00</option>
-        <option value="00:30">00:30</option>
-        <option value="01:00">01:00</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <button type="button" class="btn btn-primary" (click)="addPrice()">Submit</button>
-    </div>
-  </form>
-
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-   
-    <!--Label-->
-    <div>
-
-    </div>
-    <!--Graph-->
-    <div>
-
     </div>
   </div>
 
-  <div class="col-md">
-    <!--Table-->
-    <div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col" sortable="timestamp">Timestamp</th>
-            <th scope="col" sortable="price">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let priceItem of priceItems">
-            <td>{{  priceItem.timestamp }}</td>
-            <td>{{ priceItem.price | currency:'EUR'  }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <!--Label-->
+  <div class="row mx-md-n5">
+    <div class="col-12">
+      <div class="d-flex justify-content-center">
+        <label class="px-md-5" *ngIf="priceCalculation!=null">Max Price: €{{priceCalculation.priceMax}} Min Price: €{{priceCalculation.priceMin}} Average Price: €{{priceCalculation.priceAverage}} Most Expensive 60 Minute Period: {{priceCalculation.mostExpensiveSixtyMinutesPeriod}}</label>
+      </div>
     </div>
   </div>
-</div>
+
+  <!--Graph-->
+  <div class="row mx-auto">
+    <div class="col-12">
+      <div>
+        <div class="border border-primary">
+          <div #chartContainer id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Table-->
+  <div class="row">
+    <div class="col-12">
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" sortable="timestamp">Timestamp</th>
+              <th scope="col" sortable="price">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let priceItem of priceItems">
+              <td>{{  priceItem.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+              <td>{{ priceItem.price | currency:'EUR'  }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 

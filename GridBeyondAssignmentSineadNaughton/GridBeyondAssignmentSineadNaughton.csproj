@@ -33,11 +33,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\PriceCalculation.ts" />
     <None Remove="ClientApp\src\app\models\PriceItem.ts" />
     <None Remove="ClientApp\src\app\services\PriceItemsService.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ClientApp\src\assets\canvasjs.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\PriceCalculation.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\PriceItem.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\PriceItemsService.ts" />
   </ItemGroup>
@@ -46,6 +55,10 @@
     <None Update="Data\DatabaseConnectionString.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\canvasjs.min.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

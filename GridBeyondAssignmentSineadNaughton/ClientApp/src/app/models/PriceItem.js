@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PriceItem = /** @class */ (function () {
-    function PriceItem() {
+    function PriceItem(price, timestamp) {
+        this.price = price;
+        this.timestamp = timestamp;
     }
     return PriceItem;
 }());
