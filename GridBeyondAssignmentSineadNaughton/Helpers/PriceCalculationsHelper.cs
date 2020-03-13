@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GridBeyondAssignmentSineadNaughton.Helpers
 {
     public class PriceCalculationsHelper
-    {      
+    {
         //Calculate
         public PriceCalculation GetPriceCalculation(List<PriceItem> priceItems)
         {
@@ -22,9 +22,12 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
         //Min
         public decimal GetMinPrice(List<PriceItem> priceItems)
         {
-            decimal minPrice =0;
-            minPrice = priceItems.Min(x => x.Price);
-            minPrice = Decimal.Round(minPrice, 2);
+            decimal minPrice = 0;
+            if (priceItems.Count > 0)
+            {
+                minPrice = priceItems.Min(x => x.Price);
+                minPrice = Decimal.Round(minPrice, 2);
+            }
             return minPrice;
         }
 
@@ -32,8 +35,11 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
         public decimal GetMaxPrice(List<PriceItem> priceItems)
         {
             decimal maxPrice = 0;
-            maxPrice = priceItems.Max(x => x.Price);
-            maxPrice = Decimal.Round(maxPrice, 2);
+            if (priceItems.Count > 0)
+            {
+                maxPrice = priceItems.Max(x => x.Price);
+                maxPrice = Decimal.Round(maxPrice, 2);
+            }
             return maxPrice;
         }
 
@@ -41,8 +47,11 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
         public decimal GetAvgPrice(List<PriceItem> priceItems)
         {
             decimal avgPrice = 0;
-            avgPrice = priceItems.Average(x => x.Price);
-            avgPrice = Decimal.Round(avgPrice, 2);
+            if (priceItems.Count > 0)
+            {
+                avgPrice = priceItems.Average(x => x.Price);
+                avgPrice = Decimal.Round(avgPrice, 2);
+            }
             return avgPrice;
         }
 
@@ -62,11 +71,12 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
             int priceItemLength = priceItems.Count;
             int currentIndex = 0;
 
-            if(priceItems.Count == 0)
+            if (priceItems.Count == 0)
             {
                 resultMessage = "Not Enough Data";
             }
-            else {
+            else
+            {
                 //Loop everything in the list 
                 //Check if either one item alone or in combination with the two items next to it (if they are within the timeframe) are the most expensive
                 foreach (PriceItem priceItem in priceItems)
@@ -95,7 +105,7 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
                         if (currentResultSet > topResultSet)
                         {
                             topResultSet = currentResultSet;
-                            resultMessage = $"{priceItem.Timestamp.ToString()} to {priceItem.Timestamp.AddMinutes(60).ToString()}";                         
+                            resultMessage = $"{priceItem.Timestamp.ToString()} to {priceItem.Timestamp.AddMinutes(60).ToString()}";
                         }
                     }
                     //increment current index
@@ -112,6 +122,6 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
             bool result = false;
             result = secondDate.Subtract(firstDate).TotalMinutes <= 60;
             return result;
-        }                                       
+        }
     }
 }

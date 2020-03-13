@@ -82,6 +82,9 @@ export class HomeComponent implements OnInit {
 
       //render graph again
       this.renderGraph();
+
+      //Get new price calculations
+      this.priceCalculation = await this.service.getPriceCalculation();
     }
   }
 
