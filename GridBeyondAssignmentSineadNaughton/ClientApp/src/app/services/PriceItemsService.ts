@@ -7,6 +7,7 @@ import { PriceCalculation } from '../models/PriceCalculation';
 @Injectable()
 export class PriceItemsService {
 
+  //Method below make http requests to the api 
   constructor(private http: HttpClient) { }
 
   async getAllPriceItems() {

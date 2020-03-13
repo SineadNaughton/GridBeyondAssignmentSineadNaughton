@@ -65,7 +65,7 @@ namespace GridBeyondAssignmentSineadNaughton.Test
         public void GetMostExpensiveSixtyMinutesPeriodTest()
         {
             //Arrange
-            string expected = "10/01/2013 02:00 to 10/01/2013 03:00";
+            string expected = "10/01/2013 02:00:00 to 10/01/2013 03:00:00";
             PriceCalculationsHelper priceCalculationsHelper = new PriceCalculationsHelper();
 
             //Act

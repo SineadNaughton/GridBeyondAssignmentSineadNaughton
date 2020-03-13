@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <h1>Grid Beyond Price Display</h1>
  </div>
-  <!--Inputs-->
+  <!--Inputs fields to add a PriceItem-->
   <div class="row mx-md-n5">
     <div class="col-12">
       <div class="d-flex justify-content-center">
@@ -86,11 +86,12 @@
     </div>
   </div>
 
-  <!--Label-->
+  <!--Label to display Calculated values if PriceCalculation object is not null-->
   <div class="row mx-md-n5">
     <div class="col-12">
       <div class="d-flex justify-content-center">
-        <label class="px-md-5" *ngIf="priceCalculation!=null">Max Price: €{{priceCalculation.priceMax}} Min Price: €{{priceCalculation.priceMin}} Average Price: €{{priceCalculation.priceAverage}} Most Expensive 60 Minute Period: {{priceCalculation.mostExpensiveSixtyMinutesPeriod}}</label>
+        <label *ngIf="priceCalculation!=null">Max Price: €{{priceCalculation.priceMax}} Min Price: €{{priceCalculation.priceMin}} Average Price: €{{priceCalculation.priceAverage}} Most Expensive 60 Minute Period: {{priceCalculation.mostExpensiveSixtyMinutesPeriod}}</label>
+        <label *ngIf="priceCalculation==null">No current calculations</label>
       </div>
     </div>
   </div>
@@ -117,9 +118,9 @@
               <th scope="col" sortable="price">Price</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="priceItems!=null" >
             <tr *ngFor="let priceItem of priceItems">
-              <td>{{  priceItem.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+              <td>{{ priceItem.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
               <td>{{ priceItem.price | currency:'EUR'  }}</td>
             </tr>
           </tbody>

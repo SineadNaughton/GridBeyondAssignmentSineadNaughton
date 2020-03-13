@@ -14,8 +14,10 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
     [Route("[controller]")]
     public class PriceItemController : ControllerBase
     {
+        //Reference to service that fetches and writes to db
         PriceItemsService priceItemsService = new PriceItemsService();
 
+        //Endpoint to get all PriceItems in db
         [Route("/api/priceitems")]
         [HttpGet]
         public IEnumerable<PriceItem> GetAllItems()
@@ -24,6 +26,7 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
             return priceItems;
         }
 
+        //Endpoint to create a PriceItem 
         [Route("/api/priceitems")]
         [HttpPost]
         public List<PriceItem> GetAllItems(PriceItem priceItem)
@@ -33,6 +36,7 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
             return priceItems;
         }
 
+        //Endpoint to get calculated values (min, max etc.) for all PriceItems
         [Route("/api/priceitems/calculations")]
         [HttpGet]
         public PriceCalculation GetPriceCalculation()

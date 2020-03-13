@@ -46,67 +46,72 @@ namespace GridBeyondAssignmentSineadNaughton.Helpers
             return avgPrice;
         }
 
-        //MostExpensiveHour
+
+
         public string GetMostExpensiveSixtyMinutesPeriod(List<PriceItem> priceItems)
         {
-            //Order the list by date
+            //Ensure Ordered by date
             priceItems = priceItems.OrderBy(p => p.Timestamp).ToList();
-            int mostExpensiveHourStartIndex = 0;
-            decimal resultTop = 0;
-            decimal currentResult =0;
-            string result = "";
 
-            if (priceItems.Count < 3)
+            //Set varibales to store the highes result, the result of current set, and return string
+            decimal topResultSet = 0;
+            decimal currentResultSet = 0;
+            string resultMessage = "";
+
+            //Count items in loop
+            int priceItemLength = priceItems.Count;
+            int currentIndex = 0;
+
+            if(priceItems.Count == 0)
             {
-                result = "Not Enough Data";
+                resultMessage = "Not Enough Data";
             }
             else {
-                for (int i = 0; i < priceItems.Count; i++)
+                //Loop everything in the list 
+                //Check if either one item alone or in combination with the two items next to it (if they are within the timeframe) are the most expensive
+                foreach (PriceItem priceItem in priceItems)
                 {
-                    //check for out of range
-                    if (priceItems.Count >= i + 3)
+                    //check if current item by itself is more than topResult so far
+                    if (priceItem.Price > topResultSet)
                     {
-                        //If there are no more items within 60 minutes
-                        if (priceItems[i + 1].Timestamp.Subtract(priceItems[i].Timestamp).TotalMinutes > 60)
-                        {
-                            if (priceItems[i].Price > resultTop)
-                            {
-                                resultTop = priceItems[i].Price;
-                                string startTimeStamp = priceItems[i].Timestamp.ToString();
-                                string endTimeStamp = priceItems[i].Timestamp.AddMinutes(60).ToString();
-                                result = $"{startTimeStamp} to {endTimeStamp}";
-                            }
-                        }
-
-                        //If the next item is within 60 minutes
-                        else if (priceItems[i + 1].Timestamp.Subtract(priceItems[i].Timestamp).TotalMinutes <= 60)
-                        {
-                            currentResult = priceItems[i].Price + priceItems[i + 1].Price;
-                            if (currentResult > resultTop)
-                            {
-                                string startTimeStamp = priceItems[i].Timestamp.ToString();
-                                string endTimeStamp = priceItems[i + 1].Timestamp.ToString();
-                                result = $"{startTimeStamp} to {endTimeStamp}";
-                            }
-
-                            //If the second next item is within 60 minutes add this to the list
-                            if (priceItems[i + 2].Timestamp.Subtract(priceItems[i].Timestamp).TotalMinutes <= 30)
-                            {
-                                currentResult = priceItems[i].Price + priceItems[i + 1].Price + priceItems[i + 2].Price;
-                                if (currentResult > resultTop)
-                                {
-                                    string startTimeStamp = priceItems[i].Timestamp.ToString();
-                                    string endTimeStamp = priceItems[i + 2].Timestamp.ToString();
-                                    result = $"{startTimeStamp} to {endTimeStamp}";
-                                }
-                            
-                            }
-                        }                                                         
+                        topResultSet = priceItem.Price;
+                        resultMessage = $"{priceItem.Timestamp.ToString()} to {priceItem.Timestamp.AddMinutes(60).ToString()}";
                     }
+
+                    //Check if there is at least two more items in the list and if they are within 60 minutes
+                    if ((priceItemLength > currentIndex + 2) && (IsWithinSixtyMinutes(priceItem.Timestamp, priceItems[currentIndex + 2].Timestamp)))
+                    {
+                        currentResultSet = priceItem.Price + priceItems[currentIndex + 1].Price + priceItems[currentIndex + 2].Price;
+                        if (currentResultSet > topResultSet)
+                        {
+                            topResultSet = currentResultSet;
+                            resultMessage = $"{priceItem.Timestamp.ToString()} to {priceItem.Timestamp.AddMinutes(60).ToString()}";
+                        }
+                    }
+                    //Check if there is at least one more item in the list and if the next item is within 60 minutes
+                    else if ((priceItemLength > currentIndex + 1) && (IsWithinSixtyMinutes(priceItem.Timestamp, priceItems[currentIndex + 1].Timestamp)))
+                    {
+                        currentResultSet = priceItem.Price + priceItems[currentIndex + 1].Price;
+                        if (currentResultSet > topResultSet)
+                        {
+                            topResultSet = currentResultSet;
+                            resultMessage = $"{priceItem.Timestamp.ToString()} to {priceItem.Timestamp.AddMinutes(60).ToString()}";                         
+                        }
+                    }
+                    //increment current index
+                    currentIndex++;
                 }
             }
 
-            return result;
+            return resultMessage;
         }
+
+        //Check if an item is within 60 minutes of another
+        private bool IsWithinSixtyMinutes(DateTime firstDate, DateTime secondDate)
+        {
+            bool result = false;
+            result = secondDate.Subtract(firstDate).TotalMinutes <= 60;
+            return result;
+        }                                       
     }
 }

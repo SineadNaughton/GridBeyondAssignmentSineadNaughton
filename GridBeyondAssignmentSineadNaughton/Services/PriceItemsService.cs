@@ -8,15 +8,15 @@ namespace GridBeyondAssignmentSineadNaughton.Services
 {
     public class PriceItemsService
     {
-        //Add
+        //Add a PriceItem to DB
         public void Add(PriceItem priceItem)
         {
-            //create a data context and add an item
+            //create a data context and get all items
             using PriceItemsContext dataContext = new PriceItemsContext();
             List<PriceItem> priceItems = GetAll();
             bool exists = false;
 
-            //check if there is already an entry for this time
+            //This only allows one entry for a specific timestamp 
             foreach (PriceItem pI in priceItems)
             {
                 if (pI.Timestamp.Equals(priceItem.Timestamp))
@@ -24,6 +24,7 @@ namespace GridBeyondAssignmentSineadNaughton.Services
                     exists = true;
                 }
             }
+            //If it doesn't exist add the item
             if (!exists)
             {
                 dataContext.PriceItems.Add(priceItem);
@@ -34,6 +35,7 @@ namespace GridBeyondAssignmentSineadNaughton.Services
         //Get
         public List<PriceItem> GetAll()
         {
+            //Get all items from DB and order by timestamp
             using PriceItemsContext dataContext = new PriceItemsContext();
             var priceItems = dataContext.PriceItems.ToList();
             priceItems = priceItems.OrderBy(p => p.Timestamp).ToList();
