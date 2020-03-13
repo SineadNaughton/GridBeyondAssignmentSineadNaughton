@@ -77,6 +77,6 @@ export class HomeComponent implements OnInit{
 
   getFormattedDate(date: Date) {
     date = new Date(date);
-    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
   }
 }
