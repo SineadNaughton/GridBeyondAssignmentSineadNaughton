@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GridBeyondAssignmentSineadNaughton.Helpers;
+﻿using GridBeyondAssignmentSineadNaughton.Helpers;
 using GridBeyondAssignmentSineadNaughton.Models;
 using GridBeyondAssignmentSineadNaughton.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace GridBeyondAssignmentSineadNaughton.Controllers
 {
@@ -20,7 +16,7 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
         //Endpoint to get all PriceItems in db
         [Route("/api/priceitems")]
         [HttpGet]
-        public IEnumerable<PriceItem> GetAllItems()
+        public List<PriceItem> GetAllItems()
         {
             List<PriceItem> priceItems = priceItemsService.GetAll();
             return priceItems;
@@ -29,7 +25,7 @@ namespace GridBeyondAssignmentSineadNaughton.Controllers
         //Endpoint to create a PriceItem 
         [Route("/api/priceitems")]
         [HttpPost]
-        public List<PriceItem> GetAllItems(PriceItem priceItem)
+        public List<PriceItem> CreatePriceItem(PriceItem priceItem)
         {
             priceItemsService.Add(priceItem);
             List<PriceItem> priceItems = priceItemsService.GetAll();

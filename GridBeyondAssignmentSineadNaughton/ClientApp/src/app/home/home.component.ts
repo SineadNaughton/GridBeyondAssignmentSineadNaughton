@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Time } from '@angular/common';
-import { PriceItem } from '../models/PriceItem';
-import { PriceItemsService } from '../services/PriceItemsService';
 import * as CanvasJS from '../../assets/canvasjs.min';
 import { PriceCalculation } from '../models/PriceCalculation';
-import { Data } from '@angular/router';
+import { PriceItem } from '../models/PriceItem';
+import { PriceItemsService } from '../services/PriceItemsService';
 
 @Component({
   selector: 'app-home',
@@ -36,9 +34,8 @@ export class HomeComponent implements OnInit {
   private renderGraph() {
     //empty array for datapoints
     let dataPoints = [];
-    let y = 0;
 
-    //PriceItems stores in teh datapoints array with price as Y, and Timestamp as X
+    //PriceItems stores in the datapoints array with price as Y, and Timestamp as X
     for (var i = 0; i < this.priceItems.length; i++) {
       dataPoints.push({ y: this.priceItems[i].price, label: this.getFormattedDate(this.priceItems[i].timestamp) });
     }

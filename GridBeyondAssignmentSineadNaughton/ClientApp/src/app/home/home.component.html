@@ -90,7 +90,7 @@
   <div class="row mx-md-n5">
     <div class="col-12">
       <div class="d-flex justify-content-center">
-        <label *ngIf="priceCalculation!=null" [(ngModel)]="priceCalculation">Max Price: €{{priceCalculation.priceMax}} Min Price: €{{priceCalculation.priceMin}} Average Price: €{{priceCalculation.priceAverage}} Most Expensive 60 Minute Period: {{priceCalculation.mostExpensiveSixtyMinutesPeriod}}</label>
+        <label *ngIf="priceCalculation!=null">Max Price: €{{priceCalculation.priceMax}} Min Price: €{{priceCalculation.priceMin}} Average Price: €{{priceCalculation.priceAverage}} Most Expensive 60 Minute Period: {{priceCalculation.mostExpensiveSixtyMinutesPeriod}}</label>
         <label *ngIf="priceCalculation==null">No current calculations</label>
       </div>
     </div>
